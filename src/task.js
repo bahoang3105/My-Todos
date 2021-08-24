@@ -1,5 +1,4 @@
 import React from "react";
-import { unmountComponentAtNode } from "react-dom/cjs/react-dom.development";
 
 class Task extends React.Component {
 
@@ -54,6 +53,10 @@ class Task extends React.Component {
         console.log("component Did Mount");
     }
 
+    componentWillReceiveProps(nextProps) {
+		console.log("Component con da nhan duoc props tu component cha");
+	}
+    
     componentDidUpdate() {
         let tasks = JSON.parse(window.localStorage.getItem('tasks'));
         if(this.state.isDelete === 'true') {

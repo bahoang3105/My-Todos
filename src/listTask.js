@@ -1,6 +1,5 @@
 import React from 'react';
 import Task from './task';
-import ReactDOMServer from 'react-dom/server';
 
 class listTask extends React.Component {
     constructor(props) {
@@ -12,16 +11,15 @@ class listTask extends React.Component {
 
     createTask = () => {
         var taskName = document.getElementById('createTask').value;
+        document.getElementById('createTask').value = '';
         var tasks = JSON.parse(window.localStorage.getItem("tasks"));
         tasks.push({"name": taskName, "isComplete": "false", "id": taskName});
         this.setState({
             data: tasks
         });
         window.localStorage.setItem("tasks", JSON.stringify(tasks));
-        
     }
 
-    
     getData() {
         let t = [];
         let data = JSON.parse(window.localStorage.getItem('tasks'));
