@@ -5,7 +5,7 @@ class Task extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {name: props.task.name, id: props.task.id, isComplete: props.task.isComplete};
+        this.state = {name: props.task.name, id: props.task.id, isComplete: props.task.isComplete, link:""};
     }
 
     delete = () => {
@@ -20,9 +20,15 @@ class Task extends React.Component {
         });
     }
 
-    update = (event) => {
+    updateName = (event) => {
         this.setState({
             name: event.target.value
+        });
+    }
+
+    updateLink = (event) => {
+        this.setState({
+            link: event.target.value
         });
     }
 
@@ -48,7 +54,10 @@ class Task extends React.Component {
                 <button onClick={this.complete}>Complete</button>
                 <br></br>
                 Update New Name:
-                <input type="text" id={textId} onChange={this.update}></input>
+                <input type="text" id={textId} onChange={this.updateName}></input>
+                <br></br>
+                Upload File:
+                <input type="text" onChange={this.updateLink}></input>
             </div>
         );
     }
@@ -69,7 +78,7 @@ class Task extends React.Component {
                 if(tasks[i].id === this.state.id) {
                     tasks[i].name = this.state.name;
                     tasks[i].isComplete = this.state.isComplete;
-                    break;
+                    tasks[i].link = this.state.link;
                 }
             }
         }

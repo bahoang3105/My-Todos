@@ -19,7 +19,7 @@ class listTask extends React.Component {
     createTask = () => {
         let taskName = this.state.newTask;
         var [...tasks] = this.state.data;
-        tasks.push({"name": taskName, "isComplete": "false", "id": taskName});
+        tasks.push({"name": taskName, "isComplete": "false", "id": taskName, "link": ""});
         this.setState({
             data: tasks
         });
