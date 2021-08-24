@@ -19,9 +19,10 @@ class Task extends React.Component {
         });
     }
 
-    update = (event) => {
+    update = () => {
+        let newName = document.getElementById('text' + this.state.id).value;
         this.setState({
-            name: event.target.value
+            name: newName
         });
     }
 
@@ -32,19 +33,16 @@ class Task extends React.Component {
         if(this.state.isComplete === 'true') {
             isComplete = 'line-through';
         }
-        let howToDisplay = 'inline';
-        if(this.state.isDelete === 'true') {
-            howToDisplay = 'none';
-        } 
         return (
-            <div style={{ display: howToDisplay }} id={nodeId}>
+            <div style={{ display:"inline" }} id={nodeId}>
                 <h3 id={this.state.id} style={{ textDecorationLine: isComplete }}>{this.state.name}</h3>
                 <button onClick={this.delete}>Delete</button>
                 <button onClick={this.complete}>Complete</button>
                 <br></br>
                 Update New Name:
-                <input type="text" id={textId} onChange={this.update}></input>
-                </div>
+                <input type="text" id={textId}></input>
+                <button type="submit" onClick={this.update}>Submit</button>
+            </div>
         );
     }
 
@@ -53,8 +51,9 @@ class Task extends React.Component {
     }
     
     componentDidUpdate() {
-        let tasks = this.props.listTask;
+        let tasks = JSON.parse(window.localStorage.getItem('tasks'));
         if(this.state.isDelete === 'true') {
+            document.getElementById('node' + this.state.id).style.display = 'none';
             for(let i = 0; i < tasks.length; i++) {
                 if(tasks[i].id === this.state.id) {
                     tasks.splice(i, 1);
