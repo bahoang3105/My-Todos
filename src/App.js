@@ -1,11 +1,13 @@
 import React from 'react';
 import ListTask from './listTask';
-
+import ErrorBoundary from './ErrorBoundary';
 
 function App() {
   return(
     <div>
-      <ListTask></ListTask>
+      <ErrorBoundary>
+        <ListTask></ListTask>
+      </ErrorBoundary>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import Task from './task';
+import ErrorBoundary from './ErrorBoundary';
 
 class listTask extends React.Component {
     constructor(props) {
@@ -9,10 +10,15 @@ class listTask extends React.Component {
         }
     }
 
+    setNewName = (event) => {
+        this.setState({
+            newTask: event.target.value
+        });
+    } 
+
     createTask = () => {
-        var taskName = document.getElementById('createTask').value;
-        document.getElementById('createTask').value = '';
-        var tasks = this.state.data;    
+        let taskName = this.state.newTask;
+        var [...tasks] = this.state.data;
         tasks.push({"name": taskName, "isComplete": "false", "id": taskName});
         this.setState({
             data: tasks
@@ -27,8 +33,8 @@ class listTask extends React.Component {
     }
 
     getData() {
-        let listTask = this.state.data.map(task => <Task task={task} key={task.id}></Task>);
-        return <div id="listTask">{listTask}</div>
+        let listTask = this.state.data.map(task => <Task task={task} key={task.id} listTask={this.state.data}></Task>);
+        return <div id="listTask"><ErrorBoundary>{listTask}</ErrorBoundary></div>
     }
 
     render() {
@@ -38,7 +44,7 @@ class listTask extends React.Component {
                 <div>
                     <p>Create New Task</p>
                     <p>Name: </p>
-                    <input type="text" id="createTask"></input>
+                    <input type="text" id="createTask" onChange={this.setNewName}></input>
                     <button type="submit" onClick={this.createTask}>Submit</button>
                 </div>
                 <br></br>
