@@ -8,7 +8,6 @@ class Task extends React.Component {
     }
 
     delete = () => {
-        document.getElementById('node' + this.state.id).style.display = 'none';
         this.setState({
             isDelete: 'true'
         });
@@ -22,8 +21,6 @@ class Task extends React.Component {
 
     update = () => {
         let newName = document.getElementById('text' + this.state.id).value;
-        document.getElementById(this.state.id).innerHTML = newName;
-        document.getElementById('text' + this.state.id).value = '';
         this.setState({
             name: newName
         });
@@ -52,14 +49,11 @@ class Task extends React.Component {
     componentDidMount() {
         console.log("component Did Mount");
     }
-
-    componentWillReceiveProps(nextProps) {
-		console.log("Component con da nhan duoc props tu component cha");
-	}
     
     componentDidUpdate() {
         let tasks = JSON.parse(window.localStorage.getItem('tasks'));
         if(this.state.isDelete === 'true') {
+            document.getElementById('node' + this.state.id).style.display = 'none';
             for(let i = 0; i < tasks.length; i++) {
                 if(tasks[i].id === this.state.id) {
                     tasks.splice(i, 1);

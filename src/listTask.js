@@ -12,7 +12,7 @@ class listTask extends React.Component {
     createTask = () => {
         var taskName = document.getElementById('createTask').value;
         document.getElementById('createTask').value = '';
-        var tasks = JSON.parse(window.localStorage.getItem("tasks"));
+        var tasks = this.state.data;    
         tasks.push({"name": taskName, "isComplete": "false", "id": taskName});
         this.setState({
             data: tasks
@@ -20,13 +20,15 @@ class listTask extends React.Component {
         window.localStorage.setItem("tasks", JSON.stringify(tasks));
     }
 
+    componentDidMount() {
+        this.setState({
+            data: JSON.parse(window.localStorage.getItem('tasks'))
+        });
+    }
+
     getData() {
-        let t = [];
-        let data = JSON.parse(window.localStorage.getItem('tasks'));
-        for(let i = 0; i < data.length; i++) {
-            t.push(<Task task={data[i]} key={data[i].id}></Task>);
-        }
-        return <div id="listTask">{t}</div>
+        let listTask = this.state.data.map(task => <Task task={task} key={task.id}></Task>);
+        return <div id="listTask">{listTask}</div>
     }
 
     render() {
