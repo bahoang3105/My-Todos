@@ -48,7 +48,7 @@ class listTask extends React.Component {
                     <button type="submit" onClick={this.createTask}>Submit</button>
                 </div>
                 <br></br>
-                { this.getData() }
+                <ErrorBoundary>{ this.getData() }</ErrorBoundary>
             </div>
         );
     }

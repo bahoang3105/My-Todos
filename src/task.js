@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 
 class Task extends React.Component {
 
@@ -35,21 +36,21 @@ class Task extends React.Component {
         let howToDisplay = 'inline';
         if(this.state.isDelete === 'true') {
             howToDisplay = 'none';
-        } 
+        }
         return (
             <div style={{ display: howToDisplay }} id={nodeId}>
-                <h3 id={this.state.id} style={{ textDecorationLine: isComplete }}>{this.state.name}</h3>
+                <Link to={`/detail/${this.state.id}`}>
+                    <h3 id={this.state.id} style={{ textDecorationLine: isComplete }}>
+                        {this.state.name}
+                    </h3>
+                </Link>
                 <button onClick={this.delete}>Delete</button>
                 <button onClick={this.complete}>Complete</button>
                 <br></br>
                 Update New Name:
                 <input type="text" id={textId} onChange={this.update}></input>
-                </div>
+            </div>
         );
-    }
-
-    componentDidMount() {
-        console.log("component Did Mount");
     }
     
     componentDidUpdate() {
@@ -75,6 +76,5 @@ class Task extends React.Component {
         window.localStorage.setItem('tasks', JSON.stringify(tasks));
     }
 }
-
 
 export default Task;
