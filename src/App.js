@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import ListTask from './listTask';
+import ListTask from './features/listTask/listTask';
 import Detail from './detailTask';
 
 function App() {

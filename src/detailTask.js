@@ -1,13 +1,14 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { selectListTask } from './features/listTask/listTaskSlice'; 
 
 function Detail( {match} ) {
-
+    const data = useSelector(selectListTask);
     const id = match.params.id;
     const getTask = () => {
-        const tasks = JSON.parse(window.localStorage.getItem('tasks'));
-        for(let i = 0; i < tasks.length; i++) {
-            if(id === tasks[i].id) {
-                return tasks[i];
+        for(let i = 0; i < data.length; i++) {
+            if(id === data[i].id) {
+                return data[i];
             }
         }
     }
