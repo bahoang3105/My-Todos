@@ -79,6 +79,7 @@ class Task extends React.Component {
                     tasks[i].name = this.state.name;
                     tasks[i].isComplete = this.state.isComplete;
                     tasks[i].link = this.state.link;
+                    break;
                 }
             }
         }
