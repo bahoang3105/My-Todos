@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import ListTask from './features/listTask/listTask';
-import Detail from './detailTask';
+import ListTask from './component/ListTask';
+import Detail from './component/DetailTask';
 
 function App() {
   return(
