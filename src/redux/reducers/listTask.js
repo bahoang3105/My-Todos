@@ -10,6 +10,13 @@ export default function reducer(state = initialState, action) {
 
         case CREATE_TASK: {
             const newTask = action.payload;
+            console.log(state.data)
+            if(state.data === null) {
+                return {
+                    ...state,
+                    data: [newTask]
+                };
+            }
             return {
                 ...state,
                 data: [...state.data, newTask]
