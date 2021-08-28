@@ -1,35 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { createTask } from "../redux/actions";
 
-class CreateTask extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { name: "" };
-  }
+function CreateTask(props) {
+  const [name, setName] = useState("");
 
-  setName = (name) => {
-    this.setState({ name });
+  const handleCreateTask = () => {
+    props.createTask(name);
+    setName("");
   };
 
-  handleCreateTask = () => {
-    this.props.createTask(this.state.name);
-    this.setState({ name: "" });
-  };
-
-  render() {
-    return (
-        <div>
-            <p>Create New Task</p>
-            <p>Name: </p>
-            <input type="text" id="createTask" 
-                value={this.state.name} onChange={e => {this.setName(e.target.value)}}>    
-            </input>
-            <button type="submit" 
-                onClick={this.handleCreateTask}>Submit</button>
-        </div>
-    );
-  }
+  return (
+    <div>
+        <p>Create New Task</p>
+        <p>Name: </p>
+        <input type="text" id="createTask" 
+            value={name} onChange={e => {setName(e.target.value)}}>    
+        </input>
+        <button type="submit" 
+            onClick={handleCreateTask}>Submit</button>
+    </div>
+  );
 }
 
 export default connect(null, { createTask })(CreateTask);
