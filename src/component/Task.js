@@ -1,28 +1,51 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Link } from 'react-router-dom';
-import { complete, rename, updateLink, del } from "../redux/actions";
+import { complete, rename, del } from "../redux/actions";
+import UploadFile from './UploadFile';
 
-const Task = ({ task, complete, rename, updateLink, del }) => (
-    <div>
-        <Link to={`/detail/${task.id}`}>
-            <h3 id={task.id} style={{ textDecorationLine: task.isComplete==='true' ? 'line-through' : 'none' }}>
-                {task.name}
+function Task(props) {
+    const [name, setName] = useState(props.task.name);
+    const [displayChangeName, setDisplayChangeName] = useState(true);
+
+    const openChangeName = () => {
+        setDisplayChangeName(!displayChangeName);
+    }
+
+    const saveChangeName = () => {
+        setDisplayChangeName(!displayChangeName);
+        props.rename(props.task.id, name);
+    }
+
+    return (
+        <div className="task">
+            <h3 
+                id={props.task.id} className="nameOfTask"
+                style={{ textDecorationLine: props.task.isComplete==='true' ? 'line-through' : 'none', display: displayChangeName ? "block" : "none" }}
+                onClick={openChangeName}
+            >
+                    {props.task.name}
             </h3>
-        </Link>
-        <button onClick={() => del(task.id)}>Delete</button>
-        <button onClick={() => complete(task.id)}>Complete</button>
-        <br></br>
-        Update New Name:
-        <input type="text" id={`text${task.id}`} onChange={e => rename(task.id, e.target.value)}>
-        </input>
-        <br></br>
-        Upload File:
-        <input type="text" onChange={e => updateLink(task.id, e.target.value)}></input>
-    </div>
-);
+
+            <div style={{ display: displayChangeName ? "none" : "flex" }}>
+                <input type="text" className="changeNameInput" value={name} onChange={e => setName(e.target.value)}></input>
+                <button type="button" className="changeNameButton" onClick={() => saveChangeName()}>Rename</button>
+            </div>
+
+            <br></br>
+            <Link to={`/detail/${props.task.id}`}>
+                <input type="button" value="View Detail"></input>
+            </Link>
+            <button onClick={() => props.del(props.task.id)}>Delete</button>
+            <button onClick={() => props.complete(props.task.id)}>Complete</button>
+            <br></br>
+            <UploadFile id={props.task.id}></UploadFile>
+            <hr></hr>
+        </div>
+    );
+}
 
 export default connect(
     null,
-    { complete, rename, updateLink, del }
+    { complete, rename, del }
 )(Task);

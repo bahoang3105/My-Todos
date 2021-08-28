@@ -11,3 +11,22 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.nameOfTask {
+  margin: 0px;
+}
+
+.changeNameInput {
+  height: 20px;
+  font-size: 1.17em;
+  font-weight: bold;
+  margin: 0px;
+}
+
+.changeNameButton {
+  padding: 1px;
+}
+
+.task {
+  margin-bottom: 20px;
+}
